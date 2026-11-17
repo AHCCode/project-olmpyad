@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFRIMÉTIERS HUB 🇩🇿 — Édition d’Alger • Olympiades Africaines des Métiers 2026</title>
+  <link rel="stylesheet" href="css/design-system.css" />
+</head>
+<body>
+
+  <!-- Animated Shimmering Algerian & Pan-African Heritage Top Ribbon -->
+  <div class="heritage-ribbon"></div>
+
+  <!-- =====================================================================
+       MODERN FLOATING GLASS HEADER & COMMAND BAR
+       ===================================================================== -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand-logo" onclick="showScreen('home')">
+        <span class="brand-emblem">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.5 5.5 21 7 14 2 9.3 9 8.5 12 2"/>
+          </svg>
+        </span>
+        <div>
+          <div style="font-size:1.12rem; font-weight:800; letter-spacing:0.01em;">AFRIMÉTIERS HUB 🇩🇿</div>
+          <div style="font-size:0.7rem; color:var(--color-emerald-oasis); font-weight:800; letter-spacing:0.05em;">ALGER PAYS HÔTE • OLYMPIADES 2026</div>
+        </div>
+      </a>
+
+      <nav aria-label="Navigation principale">
+        <ul class="nav-links">
+          <li><button class="nav-btn active" data-screen="home" data-i18n="nav_home" onclick="showScreen('home')">1. Accueil</button></li>
+          <li><button class="nav-btn" data-screen="directory" data-i18n="nav_directory" onclick="showScreen('directory')">2. Annuaire</button></li>
+          <li><button class="nav-btn" data-screen="profile" data-i18n="nav_profile" onclick="showScreen('profile', 1)">3. Atelier 360°</button></li>
+          <li><button class="nav-btn" data-screen="quote" data-i18n="nav_quote" onclick="showScreen('quote')">4. Devis & Suivi</button></li>
+          <li><button class="nav-btn" data-screen="about" data-i18n="nav_about" onclick="showScreen('about')">5. À Propos</button></li>
+          <li><button class="nav-btn" data-screen="admin" data-i18n="nav_admin" onclick="showScreen('admin')">6. Comité Admin</button></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <!-- Quick Command Palette Trigger (Cmd+K) -->
+        <button class="icon-pill-btn" onclick="openCommandPalette()" title="Recherche rapide (⌘K)">
+          <span>🔍</span>
+          <span style="font-family:var(--font-mono); font-size:0.72rem; opacity:0.75;">⌘K</span>
+        </button>
+
+        <!-- Live Currency Switcher (DZD Dinar Algérien Primary + USD + TND + CFA) -->
+        <div class="currency-switcher" title="Devise d'affichage">
+          <button class="curr-btn active" data-curr="DZD" onclick="setCurrency('DZD')">DZD (DA)</button>
+          <button class="curr-btn" data-curr="USD" onclick="setCurrency('USD')">USD</button>
+          <button class="curr-btn" data-curr="TND" onclick="setCurrency('TND')">TND</button>
+          <button class="curr-btn" data-curr="XOF" onclick="setCurrency('XOF')">CFA</button>
+        </div>
+
+        <!-- Bilingual Switcher FR (LTR) / AR (RTL) -->
+        <div class="lang-switcher" role="group" aria-label="Sélecteur de langue">
+          <button id="lang-fr-btn" class="lang-btn active" onclick="setLanguage('fr')">FR</button>
+          <button id="lang-ar-btn" class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+        </div>
+
+        <!-- Dark / Light Mode Toggle -->
+        <button id="theme-toggle" class="icon-pill-btn" onclick="toggleTheme()" title="Mode Nuit de la Casbah / Lumière d'Alger">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ===================================================================
+         SCREEN 1: BENTO HOME PAGE + INTERACTIVE ALGERIA & AFRICA SVG RADAR
+         =================================================================== -->
+    <section id="screen-home" class="screen-section active">
+      <div class="bento-hero">
+        <!-- Left Bento Card: Editorial Hero & Instant Search Omnibar -->
+        <div class="hero-main-card">
+          <div>
+            <span class="badge badge-published" data-i18n="hero_badge" style="margin-bottom:0.75rem; background:rgba(16,185,129,0.22); color:#6EE7B7; border-color:rgba(16,185,129,0.45);">
+              🇩🇿 Algérie Pays Hôte — Olympiades Africaines des Métiers 2026
+            </span>
+            <h1>
+              <span data-i18n="hero_title_1">L’Algérie au Cœur de</span>
+              <span class="text-gradient-gold" data-i18n="hero_title_2"> l’Excellence Artisanale d’Afrique</span>
+            </h1>
+            <p data-i18n="hero_subtitle" style="max-width:630px; opacity:0.90; font-size:1.02rem;">
+              Sous l’égide d’Alger (La Casbah, Constantine, Ath Yenni, Ghardaïa), la plateforme réunit les plus grands maîtres artisans d’Algérie et des nations africaines invitées (Tunisie, Sénégal, Niger, Côte d’Ivoire, Égypte).
+            </p>
+
+            <!-- Instant Search Omnibar inside Hero -->
+            <div class="hero-search-omnibar">
+              <span>🇩🇿</span>
+              <input id="hero-quick-search" type="text" placeholder="Rechercher une ville ou un métier (Alger, Constantine, Ath Yenni, Ghardaïa, Nabeul, Dakar, Le Caire)..." onkeydown="if(event.key==='Enter') triggerHeroSearch()" />
+              <button class="btn btn-secondary btn-sm" style="border-radius:999px;" onclick="triggerHeroSearch()" data-i18n="hero_search_btn">
+                Explorer
+              </button>
+            </div>
+
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+              <button class="btn btn-primary" data-i18n="hero_cta_explore" onclick="showScreen('directory')">Explorer l’Annuaire</button>
+              <button class="btn btn-outline" style="background:rgba(255,255,255,0.08); color:#fff; border-color:rgba(255,255,255,0.22);" data-i18n="hero_cta_quote" onclick="showScreen('quote')">
+                ✦ Configurer un Devis Sur-Mesure
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-kpis">
+            <div class="kpi-box">
+              <div id="kpi-published-count" style="font-size:1.85rem; font-weight:800; color:var(--color-sahara-gold-light);">8</div>
+              <div data-i18n="kpi_artisans" style="font-size:0.78rem; opacity:0.85;">Maîtres Artisans Publiés</div>
+            </div>
+            <div class="kpi-box">
+              <div id="kpi-countries-count" style="font-size:1.85rem; font-weight:800; color:var(--color-sahara-gold-light);">6</div>
+              <div data-i18n="kpi_countries" style="font-size:0.78rem; opacity:0.85;">Pays (Algérie #1 Hôte)</div>
+            </div>
+            <div class="kpi-box">
+              <div id="kpi-categories-count" style="font-size:1.85rem; font-weight:800; color:var(--color-sahara-gold-light);">5</div>
+              <div data-i18n="kpi_categories" style="font-size:0.78rem; opacity:0.85;">Filières d’Art</div>
+            </div>
+            <div class="kpi-box">
+              <div id="kpi-quotes-count" style="font-size:1.85rem; font-weight:800; color:var(--color-sahara-gold-light);">5</div>
+              <div data-i18n="kpi_quotes" style="font-size:0.78rem; opacity:0.85;">Devis Certifiés</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Bento Card: Interactive Pan-African SVG Map Radar with ALGERIA as Flagship Hub -->
+        <div class="hero-map-card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-sahara-gold-light); font-weight:800;">
+                RADAR CONTINENTAL • ALGER CAPITALE 2026 🇩🇿
+              </span>
+              <h3 style="color:#fff; font-size:1.35rem;" data-i18n="map_card_title">Algérie (Hôte) & Nations Participantes</h3>
+            </div>
+            <span class="badge badge-published">● LIVE 2026</span>
+          </div>
+
+          <!-- Interactive SVG Map of Africa with Highlighted Algeria Territory + Participating Nations -->
+          <svg class="africa-map-svg" viewBox="0 0 400 410" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Africa Continent Silhouette -->
+            <path d="M145 26 L215 24 L265 44 L298 85 L340 142 L355 175 L318 242 L285 315 L245 385 L205 392 L182 335 L165 265 L145 210 L82 195 L52 145 L62 92 L108 42 Z"
+                  fill="rgba(255, 255, 255, 0.05)" stroke="rgba(226, 163, 54, 0.35)" stroke-width="1.8" />
+
+            <!-- Highlighted ALGERIA Territory Polygon in Emerald & Gold -->
+            <path d="M128 32 L192 26 L198 58 L205 98 L168 118 L122 88 Z"
+                  fill="rgba(16, 185, 129, 0.28)" stroke="#F7CA74" stroke-width="2.2" />
+
+            <!-- Connecting Routes Radiating from ALGER to Participating African Capitals -->
+            <line x1="162" y1="36" x2="198" y2="34" stroke="#F7CA74" stroke-width="1.5" stroke-dasharray="3 3" />
+            <line x1="162" y1="36" x2="262" y2="54" stroke="#F7CA74" stroke-width="1.5" stroke-dasharray="3 3" />
+            <line x1="162" y1="36" x2="64" y2="135" stroke="#F7CA74" stroke-width="1.5" stroke-dasharray="3 3" />
+            <line x1="162" y1="36" x2="192" y2="132" stroke="#F7CA74" stroke-width="1.5" stroke-dasharray="3 3" />
+            <line x1="162" y1="36" x2="124" y2="182" stroke="#F7CA74" stroke-width="1.5" stroke-dasharray="3 3" />
+
+            <!-- PRIMARY FLAGSHIP NODE: ALGERIA (Alger, Constantine, Ath Yenni, Ghardaïa) -->
+            <g class="map-node" onclick="selectCorridorCountry('DZ')">
+              <circle cx="162" cy="36" r="18" fill="rgba(16, 185, 129, 0.45)" class="map-pulse" />
+              <circle cx="162" cy="36" r="8.5" fill="#10B981" stroke="#F7CA74" stroke-width="3" />
+              <text x="62" y="24" fill="#F7CA74" font-size="12" font-weight="900">🇩🇿 ALGÉRIE (HÔTE #1)</text>
+            </g>
+
+            <!-- Node 2: TUNISIA (Nabeul & Djerba) -->
+            <g class="map-node" onclick="selectCorridorCountry('TN')">
+              <circle cx="198" cy="34" r="6" fill="#F7CA74" stroke="#fff" stroke-width="2" />
+              <text x="210" y="37" fill="#FFFFFF" font-size="10.5" font-weight="700">🇹🇳 Tunisie</text>
+            </g>
+
+            <!-- Node 3: EGYPT (Le Caire) -->
+            <g class="map-node" onclick="selectCorridorCountry('EG')">
+              <circle cx="262" cy="54" r="6" fill="#E2A336" stroke="#fff" stroke-width="2" />
+              <text x="273" y="58" fill="#FFFFFF" font-size="10.5" font-weight="700">🇪🇬 Égypte</text>
+            </g>
+
+            <!-- Node 4: SENEGAL (Dakar) -->
+            <g class="map-node" onclick="selectCorridorCountry('SN')">
+              <circle cx="64" cy="135" r="6" fill="#F59E0B" stroke="#fff" stroke-width="2" />
+              <text x="75" y="139" fill="#FFFFFF" font-size="10.5" font-weight="700">🇸🇳 Sénégal</text>
+            </g>
+
+            <!-- Node 5: NIGER (Agadez) -->
+            <g class="map-node" onclick="selectCorridorCountry('NE')">
+              <circle cx="192" cy="132" r="6" fill="#D95326" stroke="#fff" stroke-width="2" />
+              <text x="203" y="136" fill="#E2E8F0" font-size="10.5" font-weight="700">🇳🇪 Niger</text>
+            </g>
+
+            <!-- Node 6: CÔTE D'IVOIRE (Abidjan) -->
+            <g class="map-node" onclick="selectCorridorCountry('CI')">
+              <circle cx="124" cy="182" r="6" fill="#10B981" stroke="#fff" stroke-width="2" />
+              <text x="135" y="186" fill="#E2E8F0" font-size="10.5" font-weight="700">🇨🇮 Côte d’Ivoire</text>
+            </g>
+          </svg>
+
+          <div id="map-spotlight-box" style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:14px; padding:0.95rem 1.1rem;"></div>
+        </div>
+      </div>
+
+      <!-- Interactive Country & Algerian Wilayas Corridor -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem; flex-wrap:wrap; gap:0.5rem;">
+        <h2 data-i18n="sec_corridor" style="font-size:1.6rem;">🇩🇿 Algérie (Pays Hôte) & Nations Africaines Participantes</h2>
+        <span style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="sec_corridor_hint">Cliquez sur un pays pour filtrer les maîtres artisans</span>
+      </div>
+      <div id="home-country-corridor" class="country-corridor"></div>
+
+      <!-- Craft Categories -->
+      <h2 data-i18n="sec_categories" style="font-size:1.6rem; margin-bottom:1rem;">Filières d’Artisanat d’Art</h2>
+      <div id="home-categories-grid" class="grid-categories" style="margin-bottom:2.75rem;"></div>
+
+      <!-- Featured Published Artisans -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.15rem; flex-wrap:wrap; gap:0.5rem;">
+        <h2 data-i18n="sec_featured" style="font-size:1.6rem;">Maîtres Artisans à la Une (Statut : Publié)</h2>
+        <button class="btn btn-outline btn-sm" onclick="showScreen('directory')" data-i18n="btn_see_all">Voir tout l’annuaire →</button>
+      </div>
+      <div id="home-featured-grid" class="grid-3"></div>
+    </section>
+
+    <!-- ===================================================================
+         SCREEN 2: ARTISAN DIRECTORY (Faceted Search + Grid/Table Switcher)
+         =================================================================== -->
+    <section id="screen-directory" class="screen-section">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+        <div>
+          <span class="badge badge-published" style="margin-bottom:0.5rem;">✓ Règle Métier #1 Active : Isolation stricte des profils "Publié"</span>
+          <h1 data-i18n="dir_title" style="font-size:2.3rem;">Annuaire Officiel des Maîtres Artisans</h1>
+          <p data-i18n="dir_subtitle" style="color:var(--text-secondary);">
+            Recherche multi-critères par filière, pays (Algérie #1 & Afrique) et ville/wilaya parmi les profils publiés.
+          </p>
+        </div>
+        <div class="lang-switcher">
+          <button id="view-grid-btn" class="lang-btn active" onclick="setDirectoryView('grid')">⊞ Galerie HD</button>
+          <button id="view-table-btn" class="lang-btn" onclick="setDirectoryView('table')">☰ Vue Matricielle</button>
+        </div>
+      </div>
+
+      <div class="filter-bar" role="search">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="filter-category" data-i18n="filter_category">Catégorie de métier</label>
+          <select id="filter-category" class="form-control" onchange="renderDirectory()"></select>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="filter-country" data-i18n="filter_country">Pays</label>
+          <select id="filter-country" class="form-control" onchange="renderDirectory()"></select>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="filter-city" data-i18n="filter_city">Wilaya / Ville / Spécialité</label>
+          <input id="filter-city" type="text" class="form-control" data-i18n-placeholder="filter_city_placeholder" placeholder="Ex: Alger, Constantine, Ath Yenni, Ghardaïa, Nabeul, Dakar..." oninput="renderDirectory()" />
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="filter-sort" data-i18n="filter_sort">Trier par</label>
+          <select id="filter-sort" class="form-control" onchange="renderDirectory()">
+            <option value="featured">⭐ Algérie Hôte & Expérience</option>
+            <option value="exp_desc">🏅 Plus grande expérience</option>
+            <option value="price_asc">💵 Tarif indicatif croissant</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn btn-outline" style="width:100%;" data-i18n="filter_reset" onclick="resetDirectoryFilters()">Réinitialiser</button>
+        </div>
+      </div>
+
+      <p id="directory-count-banner" style="font-weight:700; color:var(--color-emerald-oasis); margin-bottom:1.15rem;"></p>
+      <div id="directory-results-grid" class="grid-3"></div>
+    </section>
+
+    <!-- ===================================================================
+         SCREEN 3: ARTISAN DETAIL PROFILE (360° Atelier + Voice Audio Guide)
+         =================================================================== -->
+    <section id="screen-profile" class="screen-section">
+      <div style="margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <button class="btn btn-outline btn-sm" data-i18n="profile_back" onclick="showScreen('directory')">← Retour à l’annuaire</button>
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <span style="font-size:0.82rem; font-weight:700; color:var(--text-secondary);">Test Interactif Règle Métier #1 :</span>
+          <button class="btn btn-outline btn-sm" onclick="showScreen('profile', 1)">🇩🇿 #1 Alger (Publié ✓)</button>
+          <button class="btn btn-outline btn-sm" onclick="showScreen('profile', 2)">🇩🇿 #2 Constantine (Publié ✓)</button>
+          <button class="btn btn-outline btn-sm" onclick="showScreen('profile', 3)">🇩🇿 #3 Ath Yenni (Publié ✓)</button>
+          <button class="btn btn-outline btn-sm" onclick="showScreen('profile', 5)">🇹🇳 #5 Nabeul (Publié ✓)</button>
+          <button class="btn btn-outline btn-sm" style="border-color:var(--color-crimson-alert); color:var(--color-crimson-alert);" onclick="showScreen('profile', 9)">
+            🇩🇿 #9 Tlemcen (En attente ⛔)
+          </button>
+        </div>
+      </div>
+      <div id="profile-detail-container"></div>
+    </section>
+
+    <!-- ===================================================================
+         SCREEN 4: QUOTATION REQUEST FORM, COST BREAKDOWN & LIVE TRACKER
+         =================================================================== -->
+    <section id="screen-quote" class="screen-section">
+      <div style="margin-bottom:1.75rem;">
+        <h1 data-i18n="quote_title" style="font-size:2.3rem; margin-bottom:0.35rem;">Demande de Devis & Suivi Temps Réel</h1>
+        <p data-i18n="quote_subtitle" style="color:var(--text-secondary);">
+          Toute demande est liée à un maître artisan publié, reçoit une référence unique (DEV-2026-XXXX) et suit une machine à états contrôlée.
+        </p>
+      </div>
+
+      <!-- Creative Feature 1: Live Quote Reference Tracker with 1-Click Chips -->
+      <div class="card" style="margin-bottom:2rem; border-color:var(--color-sahara-gold);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:0.85rem;">
+          <div>
+            <h3 data-i18n="tracker_title" style="font-size:1.35rem;">🔍 Suivre une Demande de Devis par Référence Unique</h3>
+            <p style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="tracker_subtitle">
+              Cliquez sur une référence existante ou saisissez votre code pour inspecter son état dans la machine à états :
+            </p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <input id="tracker-input" type="text" class="form-control" style="width:190px; font-family:var(--font-mono); font-weight:700;" value="DEV-2026-0001" />
+            <button type="button" class="btn btn-secondary btn-sm" onclick="trackQuoteReference()">Inspecter</button>
+          </div>
+        </div>
+        <div id="tracker-quick-chips" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem;"></div>
+        <div id="tracker-result-box"></div>
+      </div>
+
+      <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); align-items:start;">
+        <!-- Creative Feature 2: Interactive Craft Complexity & Cost Breakdown Simulator -->
+        <div class="card">
+          <span class="badge badge-pending" style="align-self:flex-start; margin-bottom:0.75rem;">✨ Configurateur d’Atelier 2026</span>
+          <h3 data-i18n="sim_title" style="font-size:1.4rem; margin-bottom:0.4rem;">Simulateur de Complexité & Coûts</h3>
+          <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:1.25rem;" data-i18n="sim_desc">
+            Estimez la répartition budgétaire (Matières premières nobles, Main-d’œuvre Maâlem, Logistique & Assurance) en Dinars Algériens (DA), USD, TND ou CFA.
+          </p>
+
+          <div class="form-group">
+            <label class="form-label" for="sim-quantity">Volume / Dimensions (Pièces ou m²) : <strong id="sim-qty-label">4</strong></label>
+            <input id="sim-quantity" type="range" min="1" max="25" value="4" oninput="updateCraftEstimator()" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="sim-grade">Finition & Complexité d’Atelier</label>
+            <select id="sim-grade" class="form-control" onchange="updateCraftEstimator()">
+              <option value="1">Atelier Traditionnel Authentique (x1.0)</option>
+              <option value="1.6" selected>Finition Prestige Maâlem Sur-Mesure (x1.6)</option>
+              <option value="2.4">Pièce Monumentale / Collection Musée (x2.4)</option>
+            </select>
+          </div>
+
+          <div class="certificate-seal" style="margin-block:1rem;">
+            <div style="font-size:0.76rem; font-weight:800; text-transform:uppercase; color:var(--color-terracotta);">Budget Indicatif Calculé</div>
+            <div id="sim-estimated-output" style="font-size:1.95rem; font-weight:800; margin-block:0.2rem;">362 880 DA</div>
+            <div style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:0.85rem;">
+              Délai artisanal estimé : <strong id="sim-days-output">22 à 29 jours ouvrés</strong>
+            </div>
+            <div id="sim-breakdown-bars" style="font-size:0.78rem; display:grid; gap:0.45rem;"></div>
+          </div>
+
+          <button type="button" class="btn btn-outline" style="width:100%;" onclick="applyEstimatedBudgetToForm()">
+            ↓ Injecter cette configuration dans la demande de devis
+          </button>
+        </div>
+
+        <!-- Official Quote Submission Form -->
+        <form class="card" onsubmit="handleQuoteSubmit(event)">
+          <div class="alert-box" data-i18n="quote_rule_notice" style="font-size:0.84rem;">
+            Règle métier #2 active : Seuls les artisans au statut "Publié" peuvent recevoir une demande de devis.
+          </div>
+
+          <div id="quote-feedback"></div>
+
+          <div class="form-group">
+            <label class="form-label" for="quote-artisan-select" data-i18n="quote_select_artisan">
+              Maître Artisan destinataire (Statut "Publié" uniquement) *
+            </label>
+            <select id="quote-artisan-select" class="form-control" required onchange="updateCraftEstimator()"></select>
+          </div>
+
+          <div class="grid-categories" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="form-group">
+              <label class="form-label" for="quote-client-name" data-i18n="quote_client_name">Votre nom complet *</label>
+              <input id="quote-client-name" type="text" class="form-control" required placeholder="Ex: Mehdi Benkhedda" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quote-client-email" data-i18n="quote_client_email">Votre adresse email *</label>
+              <input id="quote-client-email" type="email" class="form-control" required placeholder="client@patrimoine.dz" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quote-client-phone" data-i18n="quote_client_phone">Téléphone / WhatsApp *</label>
+              <input id="quote-client-phone" type="tel" class="form-control" required placeholder="+213 5 50 00 00 00" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quote-client-country" data-i18n="quote_client_country">Wilaya / Pays de résidence *</label>
+              <input id="quote-client-country" type="text" class="form-control" required placeholder="Alger, Constantine, Tunis, Dakar..." />
+            </div>
+          </div>
+
+          <div class="grid-categories" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+            <div class="form-group">
+              <label class="form-label" for="quote-service-title" data-i18n="quote_service_title">Objet du projet artisanal *</label>
+              <input id="quote-service-title" type="text" class="form-control" required placeholder="Ex: Lustre & Plateau Sniwa en Cuivre Ciselé de la Casbah" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quote-budget" data-i18n="quote_budget">Budget estimatif (USD équiv.)</label>
+              <input id="quote-budget" type="number" min="0" step="10" class="form-control" placeholder="2688" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quote-deadline" data-i18n="quote_deadline">Date souhaitée</label>
+              <input id="quote-deadline" type="date" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="quote-desc" data-i18n="quote_desc">
+              Description détaillée du besoin (dimensions, matériaux, quantités) *
+            </label>
+            <textarea id="quote-desc" rows="3" class="form-control" required placeholder="Précisez les dimensions, motifs souhaités et contraintes de livraison..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" data-i18n="quote_submit">
+            ✦ Générer la Référence Unique & Envoyer le Devis
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SCREEN 5: ABOUT & CONTACT PAGE
+         =================================================================== -->
+    <section id="screen-about" class="screen-section">
+      <h1 data-i18n="about_title" style="font-size:2.3rem; margin-bottom:1.25rem;">À Propos d’AFRIMÉTIERS HUB 🇩🇿 & Charte d’Alger 2026</h1>
+      <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));">
+        <div class="card">
+          <span class="badge badge-published" style="align-self:flex-start; margin-bottom:0.75rem;">🇩🇿 Algérie Pays Hôte • Charte Pan-Africaine 2026</span>
+          <h2 data-i18n="about_mission_title" style="margin-bottom:0.75rem;">L’Algérie, Carrefour de l’Artisanat Africain</h2>
+          <p data-i18n="about_mission_text" style="color:var(--text-secondary); margin-bottom:1.25rem;">
+            Établie à Alger dans le cadre des Olympiades Africaines des Métiers 2026, la plateforme AFRIMÉTIERS HUB place le génie artisanal algérien (Casbah d’Alger, Constantine, Ath Yenni, Ghardaïa, Tlemcen) en tête d’affiche, tout en accueillant les délégations fraternelles de Tunisie, du Sénégal, du Niger, de Côte d’Ivoire et d’Égypte.
+          </p>
+          <div class="process-timeline" style="grid-template-columns: 1fr 1fr;">
+            <div class="timeline-step completed">
+              <strong>100% Rémunération Directe</strong>
+              <p style="font-size:0.8rem;">Zéro commission prélevée sur le travail des ateliers certifiés.</p>
+            </div>
+            <div class="timeline-step completed">
+              <strong>Label Qualité Alger 2026</strong>
+              <p style="font-size:0.8rem;">Validation collégiale par le Haut Comité des Olympiades.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="contact_title" style="margin-bottom:0.75rem;">Contacter le Haut Comité d’Alger</h2>
+          <p style="margin-bottom:1rem; color:var(--text-secondary);">
+            📍 Palais de la Culture Moufdi Zakaria — Kouba, Alger, Algérie 🇩🇿<br />
+            ✉ Email : <strong>direction@afrimetiers-alger2026.dz</strong><br />
+            ☎ Tél : <strong>+213 23 00 20 26 / +213 5 50 00 20 26</strong>
+          </p>
+          <div class="form-group">
+            <input id="contact-org-name" type="text" class="form-control" placeholder="Votre Nom / Institution" />
+          </div>
+          <div class="form-group">
+            <input id="contact-org-email" type="email" class="form-control" placeholder="Email officiel" />
+          </div>
+          <div class="form-group">
+            <textarea id="contact-org-msg" rows="3" class="form-control" placeholder="Votre message au Comité d'Organisation d'Alger..."></textarea>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="sendContactMessage()">
+            Transmettre au Comité d’Alger
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SCREEN 6: SECURE ADMIN DASHBOARD ("TOUR DE CONTRÔLE ALGER 2026")
+         =================================================================== -->
+    <section id="screen-admin" class="screen-section">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+        <div>
+          <span class="badge badge-accepted">🔐 Session Comité d’Alger Authentifiée : Pr. Karim Benmahmoud (SuperAdmin 🇩🇿)</span>
+          <h1 data-i18n="admin_title" style="font-size:2.2rem; margin-top:0.4rem;">Tour de Contrôle — Comité Olympiades Alger 2026</h1>
+          <p data-i18n="admin_subtitle" style="color:var(--text-secondary);">
+            Analytique par pays (Algérie #1) et wilaya, gestion des statuts de publication, machine à états irréversible et studio SQL.
+          </p>
+        </div>
+        <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+          <button class="btn btn-primary btn-sm" onclick="toggleNewArtisanForm()">+ Ajouter un Artisan</button>
+          <button class="btn btn-outline btn-sm" onclick="exportDatabaseJSON()">⬇ Exporter JSON</button>
+          <button class="btn btn-outline btn-sm" onclick="resetDemoState()">↺ Réinitialiser Démo</button>
+        </div>
+      </div>
+
+      <!-- Visual Analytics Row -->
+      <div id="admin-analytics-grid" class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); margin-bottom:2rem;"></div>
+
+      <!-- Quick Add Artisan Collapsible Panel -->
+      <div id="admin-add-artisan-panel" class="card" style="display:none; margin-bottom:2rem; border-color:var(--color-terracotta);">
+        <h3 style="margin-bottom:0.85rem;">+ Enregistrer un Nouvel Artisan (FR / AR)</h3>
+        <form onsubmit="handleAdminAddArtisan(event)">
+          <div class="grid-categories" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="form-group">
+              <label class="form-label">Nom Complet (FR) *</label>
+              <input id="new-art-name-fr" type="text" class="form-control" required placeholder="Ex: Maâlem Sofiane Merzougui" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">الاسم الكامل (AR) *</label>
+              <input id="new-art-name-ar" type="text" class="form-control" required placeholder="مثال: المعلم سفيان مرزوقي" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Pays *</label>
+              <select id="new-art-country" class="form-control" required>
+                <option value="DZ" selected>🇩🇿 Algérie (Pays Hôte)</option>
+                <option value="TN">🇹🇳 Tunisie</option>
+                <option value="SN">🇸🇳 Sénégal</option>
+                <option value="NE">🇳🇪 Niger</option>
+                <option value="CI">🇨🇮 Côte d’Ivoire</option>
+                <option value="EG">🇪🇬 Égypte</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Filière / Catégorie *</label>
+              <select id="new-art-cat" class="form-control" required>
+                <option value="5">Dinanderie, Céramique & Zellige</option>
+                <option value="2">Broderie Majboud, Karakou & Cuir</option>
+                <option value="4">Bijouterie d’Ath Yenni & Orfèvrerie</option>
+                <option value="1">Tapis du M’zab & Tissage d’Art</option>
+                <option value="3">Ébénisterie & Sculpture sur Bois</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Wilaya / Ville (FR) *</label>
+              <input id="new-art-city" type="text" class="form-control" required placeholder="Ex: Oran, Tamanrasset, Béjaïa..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Spécialité (FR) *</label>
+              <input id="new-art-spec" type="text" class="form-control" required placeholder="Ex: Sellerie & Broderie d'Or" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Statut Initial *</label>
+              <select id="new-art-status" class="form-control">
+                <option value="Publié">Publié (Visible immédiatement)</option>
+                <option value="En attente">En attente (Invisible du public)</option>
+                <option value="Brouillon">Brouillon</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Enregistrer le Profil Artisan</button>
+        </form>
+      </div>
+
+      <!-- Creative Feature 3: Interactive SQL Control Query Runner -->
+      <div class="card" style="margin-bottom:2.25rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">
+          <div>
+            <span class="badge badge-pending">⚡ Outil Jury Alger 2026 — Requêtes SQL de Contrôle</span>
+            <h3 style="font-size:1.35rem; margin-top:0.3rem;">Exécuteur Live des 4 Requêtes SQL de Validation</h3>
+          </div>
+          <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+            <button class="btn btn-outline btn-sm" onclick="runControlQuery(1)">Q1: Recherche Multi-Critères Publiés</button>
+            <button class="btn btn-outline btn-sm" onclick="runControlQuery(2)">Q2: Artisans par Pays (Algérie #1)</button>
+            <button class="btn btn-outline btn-sm" onclick="runControlQuery(3)">Q3: Top 5 Artisans Sollicités</button>
+            <button class="btn btn-outline btn-sm" onclick="runControlQuery(4)">Q4: Audit Machine à États Devis</button>
+          </div>
+        </div>
+        <pre id="sql-query-code" class="sql-console"></pre>
+        <div id="sql-query-output" class="table-responsive"></div>
+      </div>
+
+      <!-- Admin Section 1: Artisan Status Management -->
+      <h2 data-i18n="admin_artisans_heading" style="font-size:1.35rem; margin-bottom:0.75rem;">
+        1. Gestion des Profils Artisans (Visibilité Publique = "Publié")
+      </h2>
+      <div class="table-responsive" style="margin-bottom:2.25rem;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Matricule</th>
+              <th>Artisan (FR / AR)</th>
+              <th>Pays & Wilaya/Ville</th>
+              <th>Visibilité Publique</th>
+              <th>Statut Actuel</th>
+              <th>Action Comité (Changer Statut)</th>
+            </tr>
+          </thead>
+          <tbody id="admin-artisans-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Admin Section 2: Quote Requests & State Machine -->
+      <h2 data-i18n="admin_quotes_heading" style="font-size:1.35rem; margin-bottom:0.75rem;">
+        2. Suivi des Demandes de Devis (Machine à états irréversible depuis "Nouvelle")
+      </h2>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Référence Unique</th>
+              <th>Client & Pays</th>
+              <th>Artisan Lié</th>
+              <th>Projet & Budget</th>
+              <th>Statut Actuel</th>
+              <th>Transition Machine à États</th>
+            </tr>
+          </thead>
+          <tbody id="admin-quotes-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       COMMAND PALETTE (⌘K) & PORTFOLIO LIGHTBOX MODAL
+       ===================================================================== -->
+  <div id="app-modal-overlay" class="modal-overlay" onclick="if(event.target===this) closeAppModal()">
+    <div id="app-modal-content" class="modal-dialog"></div>
+  </div>
+
+  <!-- Live Toast Notification Stack -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <footer class="site-footer">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <strong>AFRIMÉTIERS HUB 🇩🇿</strong> — Algérie Pays Hôte • Olympiades Africaines des Métiers 2026
+        <div style="font-size:0.78rem; opacity:0.75;">Architecture Bilingue Français (LTR) & Arabe (RTL) • MySQL 8.0 + Triggers Métier #1 à #4</div>
+      </div>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <span class="badge badge-published">Règle #1: Public = Publié</span>
+        <span class="badge badge-accepted">Règle #2: Devis → Publié</span>
+        <span class="badge badge-new">Règle #3: Réf. Unique</span>
+        <span class="badge badge-pending">Règle #4: État Irréversible</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
